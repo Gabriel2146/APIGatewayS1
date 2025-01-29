@@ -1,0 +1,29 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/transactions/{everything}",
+            "UpstreamPathTemplate": "/gateway/transactions/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post" ],
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001 // Puerto del Servicio de Transacciones
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/users/{everything}",
+            "UpstreamPathTemplate": "/gateway/users/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post" ],
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5002 // Puerto del Servicio de Usuarios
+                }
+            ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:5000"
+    }
+}
