@@ -1,28 +1,26 @@
-﻿using Ocelot.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;  // Asegúrate de tener esta referencia
+using Microsoft.Extensions.Hosting;
+using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        // Configuración de Ocelot
         services.AddOcelot();
-
-        // Configuración de autenticación JWT
+        services.AddSwaggerGen();
         services.AddAuthentication("Bearer")
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "https://your-auth-server.com";  // Cambiar por tu servidor de autenticación
+                    options.Authority = "https://your-auth-server.com";
                     options.Audience = "your-api";
                     options.RequireHttpsMetadata = false;
                 });
-
-        // Agregar Swagger (opcional)
-        services.AddSwaggerGen();
     }
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)  // Cambia a IWebHostEnvironment
     {
+
         app.UseMiddleware<AuthenticationMiddleware>();
 
         if (env.IsDevelopment())
@@ -33,11 +31,7 @@ public class Startup
         }
 
         app.UseRouting();
-
-        // Usar autenticación JWT
         app.UseAuthentication();
-
-        // Usar Ocelot para enrutar las solicitudes
         app.UseOcelot().Wait();
     }
 }
