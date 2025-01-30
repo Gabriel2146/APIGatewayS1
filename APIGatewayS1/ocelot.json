@@ -7,10 +7,9 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5031 // Puerto corregido para el servicio de transacciones
+                    "Port": 5031
                 }
-            ],
-            "DownstreamScheme": "http"
+            ]
         },
         {
             "DownstreamPathTemplate": "/api/users/{everything}",
@@ -19,13 +18,23 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5032 // Puerto corregido para el servicio de usuarios
+                    "Port": 5032
                 }
-            ],
-            "DownstreamScheme": "http"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/",
+            "UpstreamPathTemplate": "/",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5033
+                }
+            ]
         }
     ],
     "GlobalConfiguration": {
-        "BaseUrl": "http://localhost:5033" // Puerto del API Gateway
+        "BaseUrl": "https://localhost:5033"
     }
 }
